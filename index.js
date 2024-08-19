@@ -4,6 +4,8 @@ const port = 5000;
 const mongoose = require("mongoose");
 const Product = require("./modules/products.module");
 const productsRoutes = require('./utilities/products.routes')
+require('dotenv').config();
+const uriKey = process.env.DATABASE_URI;
 
 //middleware
 app.use(express.json());
@@ -13,11 +15,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/products", productsRoutes);
 
 
-
-
-
-
-
 //get home
 app.get('/',(req,res)=>{
   res.send('Hello, This is a simple MERN-CRUD APP')
@@ -25,9 +22,7 @@ app.get('/',(req,res)=>{
 
 // mongodb connection stream
 mongoose
-  .connect(
-    "mongodb+srv://jjjatto:GdgT6z9OzwQS8F9t@jlabsdb.fqsk0.mongodb.net/?retryWrites=true&w=majority&appName=jlabsdb"
-  )
+  .connect(uriKey)
   .then(() => {
     console.log("connection to db successful");
     //console info
